@@ -33,7 +33,7 @@ const STORAGE = {
     const serializedValue = JSON.stringify(todoItems);
     localStorage.setItem(STORAGE_KEY, serializedValue);
   },
-  fetch() {
+  fetch(): TodoItem[] {
     const todoItems = localStorage.getItem(STORAGE_KEY) ?? "[]";
     return JSON.parse(todoItems);
   },
