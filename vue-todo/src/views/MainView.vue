@@ -28,6 +28,7 @@ import TodoInput from "@/components/TodoInput.vue";
 import TodoList from "@/components/TodoList.vue";
 import { TodoItem } from "@/types";
 import Todo from "@/api/Todo";
+import CollectionUtil from "@/utils/CollectionUtil";
 
 export default Vue.extend({
   components: { TodoInput, TodoList },
@@ -78,8 +79,8 @@ export default Vue.extend({
       this.todoItems = Todo.fetch();
     },
 
-    onItemRemove(itemKey: number) {
-      this.todoItems.splice(itemKey, 1);
+    onItemRemove(id: number) {
+      CollectionUtil.remove(this.todoItems, (item) => item.id == id);
       Todo.save(this.todoItems);
     },
 
