@@ -1,6 +1,6 @@
 <template>
   <li>
-    <input type="checkbox" :value="checked" @change="onCheckChanged" />
+    <input type="checkbox" :checked="checked" @change="onCheckChanged" />
     <span class="item" :class="{ complete: checked }">{{ text }}</span>
     <button @click="onRemoveClick">삭제</button>
   </li>
