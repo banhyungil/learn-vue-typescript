@@ -6,41 +6,39 @@
     <main>
       <TodoInput :item="todoText" @input="updateTodoText" @add="addTodoItem" />
       <ul>
-        <TodoListItem
-          v-for="(todoItem, idx) in todoItems"
-          :key="idx"
-          :id="idx"
-          :text="todoItem.text"
-          :checked="todoItem.completed"
-          :itemKey="idx"
+        <TodoList
+          :todoItems="todoItemsNotDone"
           @item:remove="onItemRemove"
-          @check:toggled="onCompletedToggled"
+          @check:toggled="onDoneToggled"
         />
       </ul>
     </main>
+    <h1>완료목록</h1>
+    <TodoList
+      :todoItems="todoItemsDone"
+      @item:remove="onItemRemove"
+      @check:toggled="onDoneToggled"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import TodoInput from "@/components/TodoInput.vue";
-import TodoListItem from "@/components/TodoListItem.vue";
+import TodoList from "@/components/TodoList.vue";
 import { TodoItem } from "@/types";
-
-const STORAGE_KEY = "vue-todo-ts-v1";
-const STORAGE = {
-  save(todoItems: TodoItem[]) {
-    const serializedValue = JSON.stringify(todoItems);
-    localStorage.setItem(STORAGE_KEY, serializedValue);
-  },
-  fetch(): TodoItem[] {
-    const todoItems = localStorage.getItem(STORAGE_KEY) ?? "[]";
-    return JSON.parse(todoItems);
-  },
-};
+import Todo from "@/api/Todo";
 
 export default Vue.extend({
-  components: { TodoInput, TodoListItem },
+  components: { TodoInput, TodoList },
+  computed: {
+    todoItemsNotDone(): TodoItem[] {
+      return this.todoItems.filter((item) => !item.done);
+    },
+    todoItemsDone(): TodoItem[] {
+      return this.todoItems.filter((item) => item.done);
+    },
+  },
   data() {
     return {
       todoText: "",
@@ -52,20 +50,22 @@ export default Vue.extend({
       this.todoText = value;
     },
     addTodoItem() {
+      const idArr = this.todoItems.map((item) => Number(item.id));
+      const maxId = idArr.length == 0 ? 0 : Math.max(...idArr);
+
       const todoItem: TodoItem = {
+        id: maxId + 1,
         text: this.todoText,
-        completed: false,
+        done: false,
       };
 
       this.todoItems.push(todoItem);
       this.todoItems.sort((a, b) =>
         a.text == b.text ? 0 : a.text < b.text ? -1 : 1
       );
-      this.todoItems.sort((a, b) =>
-        a.completed == b.completed ? 0 : a.completed ? 1 : -1
-      );
+      this.todoItems.sort((a, b) => (a.done == b.done ? 0 : a.done ? 1 : -1));
 
-      STORAGE.save(this.todoItems);
+      Todo.save(this.todoItems);
 
       this.initTodoText();
     },
@@ -75,19 +75,21 @@ export default Vue.extend({
     },
 
     fetchTodoItems() {
-      this.todoItems = STORAGE.fetch();
+      this.todoItems = Todo.fetch();
     },
 
     onItemRemove(itemKey: number) {
       this.todoItems.splice(itemKey, 1);
-      STORAGE.save(this.todoItems);
+      Todo.save(this.todoItems);
     },
 
-    onCompletedToggled(idx: number) {
-      this.todoItems[idx].completed = !this.todoItems[idx].completed;
-      STORAGE.save(this.todoItems);
+    onDoneToggled(id: number) {
+      const todoItem = this.todoItems.find((item) => item.id == id) as TodoItem;
+      todoItem.done = !todoItem.done;
+      Todo.save(this.todoItems);
     },
   },
+
   created() {
     this.fetchTodoItems();
   },

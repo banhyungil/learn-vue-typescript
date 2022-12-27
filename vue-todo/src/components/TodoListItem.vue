@@ -1,8 +1,13 @@
 <template>
   <li>
-    <input type="checkbox" :checked="checked" @change="onCheckChanged" />
-    <span class="item" :class="{ complete: checked }">{{ text }}</span>
-    <button @click="onRemoveClick">삭제</button>
+    <input
+      v-if="!readonly"
+      type="checkbox"
+      :checked="checked"
+      @change="onCheckChanged"
+    />
+    <span class="item" :class="{ done: checked }">{{ text }}</span>
+    <button v-if="!readonly" @click="onRemoveClick">삭제</button>
   </li>
 </template>
 
@@ -14,6 +19,7 @@ export default Vue.extend({
     id: { type: Number, required: true },
     text: { type: String, required: true },
     checked: { type: Boolean, default: false },
+    readonly: { type: Boolean, default: false },
   },
   methods: {
     onRemoveClick() {
@@ -30,9 +36,10 @@ export default Vue.extend({
 <style scoped>
 .item {
   cursor: pointer;
+  margin-left: 5px;
 }
 
-.complete {
+.done {
   text-decoration: line-through;
 }
 </style>

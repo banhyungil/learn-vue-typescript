@@ -1,10 +1,7 @@
 <template>
   <div>
     <div class="gr">
-      <nav class="gr-nav">
-        <RouterLink to="main">main</RouterLink>
-        <RouterLink to="done">done</RouterLink>
-      </nav>
+      <MyMenu />
       <RouterView />
     </div>
   </div>
@@ -12,10 +9,11 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { RouterView, RouterLink } from "vue-router";
+import { RouterView } from "vue-router";
+import MyMenu from "@/components/MyMenu.vue";
 
 export default Vue.extend({
-  components: { RouterView, RouterLink },
+  components: { RouterView, MyMenu },
 });
 </script>
 
