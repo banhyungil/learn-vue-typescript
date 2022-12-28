@@ -21,15 +21,15 @@ export default Vue.extend({
   justify-items: center;
   align-items: center;
 
-  background-color: #42b883;
   font-size: 20px;
+  border-right: 1px solid #dddddd;
 }
 
 .active {
-  color: #35495e;
+  color: #146af0;
 }
 
 a {
-  color: white;
+  color: #2d3137;
 }
 </style>
