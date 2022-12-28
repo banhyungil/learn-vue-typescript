@@ -2,7 +2,14 @@
   <div class="fr-center">
     <header class="fr-center"><h2>오늘 할 일</h2></header>
     <main>
-      <TodoInput :item="todoText" @input="updateTodoText" @add="addTodoItem" />
+      <input
+        id="todo-input"
+        type="text"
+        :value="item"
+        @input="updateTodoText($event.target.value)"
+        @keyup.enter="addTodoItem"
+      />
+      <button @click="addTodoItem" type="button">add</button>
       <ul>
         <TodoList
           :todoItems="todoItemsNotDone"
@@ -22,14 +29,13 @@
 
 <script lang="ts">
 import Vue from "vue";
-import TodoInput from "@/components/TodoInput.vue";
 import TodoList from "@/components/TodoList.vue";
 import { TodoItem } from "@/types";
 import Todo from "@/api/Todo";
 import CollectionUtil from "@/utils/CollectionUtil";
 
 export default Vue.extend({
-  components: { TodoInput, TodoList },
+  components: { TodoList },
   computed: {
     todoItemsNotDone(): TodoItem[] {
       return this.todoItems.filter((item) => !item.done);
