@@ -1,5 +1,6 @@
 import MainView from "@/views/MainView.vue";
 import DoneView from "@/views/DoneView.vue";
+import TestVIew from "@/views/TestVIew.vue";
 import VueRouter from "vue-router";
 import { RouteConfig } from "vue-router/types/router";
 import Vue from "vue";
@@ -11,10 +12,11 @@ Vue.use(VueRouter);
 // either be an actual component constructor created via
 // `Vue.extend()`, or just a component options object.
 // We'll talk about nested routes later.
-const routes: RouteConfig[] = [
+export const routes: RouteConfig[] = [
   { path: "/", redirect: "/main" },
-  { path: "/main", component: MainView },
-  { path: "/done", component: DoneView },
+  { path: "/main", name: "main", component: MainView },
+  { path: "/done", name: "done", component: DoneView },
+  { path: "/test", name: "test", component: TestVIew },
 ];
 
 // 3. Create the router instance and pass the `routes` option

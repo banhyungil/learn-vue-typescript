@@ -1,6 +1,7 @@
 <template>
   <div>
     <ul>
+      <h1>{{ name }}</h1>
       <TodoList :todoItems="todoItemsDone" :readonly="true" />
     </ul>
   </div>
@@ -21,6 +22,7 @@ export default Vue.extend({
   },
   data() {
     return {
+      name,
       todoItems: [] as TodoItem[],
     };
   },

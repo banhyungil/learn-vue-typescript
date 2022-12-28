@@ -1,16 +1,25 @@
 <template>
   <div class="gr-nav">
-    <RouterLink active-class="active" to="main">MAIN</RouterLink>
-    <RouterLink active-class="active" to="done">DONE</RouterLink>
+    <templat v-for="route in routes" :key="route.path">
+      <RouterLink active-class="active" :to="route.path">{{
+        route.name.toUpperCase()
+      }}</RouterLink>
+    </templat>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import { RouterLink } from "vue-router";
+import { routes } from "@/routes";
 
 export default Vue.extend({
   components: { RouterLink },
+  data() {
+    return {
+      routes: routes.filter((route) => route.path != "/"),
+    };
+  },
 });
 </script>
 

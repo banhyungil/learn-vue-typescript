@@ -5,7 +5,7 @@
       <input
         id="todo-input"
         type="text"
-        :value="item"
+        :value="todoText"
         @input="updateTodoText($event.target.value)"
         @keyup.enter="addTodoItem"
       />
