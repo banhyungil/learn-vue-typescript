@@ -1,10 +1,12 @@
 <template>
   <div class="gr-nav">
-    <templat v-for="route in routes" :key="route.path">
-      <RouterLink active-class="active" :to="route.path">{{
-        route.name.toUpperCase()
-      }}</RouterLink>
-    </templat>
+    <RouterLink
+      v-for="route in routes"
+      :key="route.path"
+      active-class="active"
+      :to="route.path"
+      >{{ route.name.toUpperCase() }}</RouterLink
+    >
   </div>
 </template>
 
