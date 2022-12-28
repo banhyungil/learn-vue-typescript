@@ -20,10 +20,4 @@ export default Vue.extend({
   grid-template-columns: 1fr;
   background-color: #42b883;
 }
-
-.gr-nav > * {
-  font-weight: bold;
-  text-decoration: none;
-  color: #fff;
-}
 </style>

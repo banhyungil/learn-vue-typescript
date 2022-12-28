@@ -2,7 +2,9 @@
   <div>
     <div class="gr">
       <MyMenu />
-      <RouterView />
+      <transition name="fade" mode="out-in">
+        <RouterView />
+      </transition>
     </div>
   </div>
 </template>
@@ -21,5 +23,17 @@ export default Vue.extend({
 .gr {
   display: grid;
   grid-template-columns: 100px 1fr;
+  height: 80vh;
+  padding: 10vh 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

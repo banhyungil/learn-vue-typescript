@@ -1,0 +1,10 @@
+a {
+    text-decoration: none;
+}
+a:visited {
+    color: white;
+}
+
+a:active {
+    color: #35495e; 
+}
