@@ -1,7 +1,7 @@
 <template>
   <div class="gr-nav">
-    <RouterLink to="main">main</RouterLink>
-    <RouterLink to="done">done</RouterLink>
+    <RouterLink active-class="active" to="main">MAIN</RouterLink>
+    <RouterLink active-class="active" to="done">DONE</RouterLink>
   </div>
 </template>
 
@@ -17,7 +17,19 @@ export default Vue.extend({
 <style scoped>
 .gr-nav {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+  justify-items: center;
+  align-items: center;
+
   background-color: #42b883;
+  font-size: 20px;
+}
+
+.active {
+  color: #35495e;
+}
+
+a {
+  color: white;
 }
 </style>

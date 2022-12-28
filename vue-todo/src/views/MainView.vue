@@ -1,8 +1,6 @@
 <template>
-  <div>
-    <header>
-      <h1>Vue Todo with Typescript</h1>
-    </header>
+  <div class="fr-center">
+    <header class="fr-center"><h2>오늘 할 일</h2></header>
     <main>
       <TodoInput :item="todoText" @input="updateTodoText" @add="addTodoItem" />
       <ul>
@@ -13,7 +11,7 @@
         />
       </ul>
     </main>
-    <h1>완료목록</h1>
+    <div class="fr-center"><h2>완료목록</h2></div>
     <TodoList
       :todoItems="todoItemsDone"
       @item:remove="onItemRemove"
