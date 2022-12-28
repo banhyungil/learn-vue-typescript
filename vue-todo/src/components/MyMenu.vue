@@ -26,7 +26,7 @@ export default Vue.extend({
 }
 
 .active {
-  color: #146af0;
+  color: #42b883;
 }
 
 a {
