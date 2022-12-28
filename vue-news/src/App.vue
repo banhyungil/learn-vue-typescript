@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <spinner :loading="loading"></spinner>
-    <tool-bar></tool-bar>
+    <Spinner :loading="loading"></Spinner>
+    <ToolBar></ToolBar>
     <transition name="routing-fade" mode="out-in">
-      <router-view></router-view>
+      <RouterView></RouterView>
     </transition>
   </div>
 </template>
